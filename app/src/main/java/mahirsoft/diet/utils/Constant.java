@@ -5,6 +5,5 @@ package mahirsoft.diet.utils;
  */
 public class Constant {
     public static final String PREF_NAME = "cache_diet_sehat";
-    public static final String PREF_BO = "";
 
 }

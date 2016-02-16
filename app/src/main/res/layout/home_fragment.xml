@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_vertical_margin">
+        <TextView
+            android:id="@id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@id/kalori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@id/kalori_terserap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@id/emoticon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@id/btn_dataserapan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data serapan sehari-hari"
+            android:onClick="onClickDataSerapan"/>
+        <Button
+            android:id="@id/btn_kalori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Info kalori makanan dan minuman"
+            android:onClick="onClickKalori"/>
+        <Button
+            android:id="@id/btn_jadwal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Info jadwal yang sudah diset"
+            android:onClick="onCLickJadwal"/>
+        <Button
+            android:id="@id/btn_panduan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Panduan pengguna aplikasi"
+            android:onClick="onClickPanduan"/>
+    </LinearLayout>
+</ScrollView>

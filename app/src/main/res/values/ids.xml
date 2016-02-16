@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="profile" type="id"/>
+    <item name="set_jadwal" type="id"/>
+    <item name="about" type="id"/>
+    <item name="close" type="id"/>
+    <item name="name" type="id"/>
+    <item name="kalori" type="id"/>
+    <item name="kalori_terserap" type="id"/>
+    <item name="emoticon" type="id"/>
+    <item name="btn_dataserapan" type="id"/>
+    <item name="btn_kalori" type="id"/>
+    <item name="btn_jadwal" type="id"/>
+    <item name="btn_panduan" type="id"/>
+    <item name="container" type="id"/>
+</resources>
