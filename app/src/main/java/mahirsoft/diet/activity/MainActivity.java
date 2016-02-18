@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import mahirsoft.diet.R;
+import mahirsoft.diet.fragment.AboutFragment;
 import mahirsoft.diet.fragment.HomeFragment;
+import mahirsoft.diet.fragment.JadwalFragment;
 import mahirsoft.diet.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,12 +62,10 @@ public class MainActivity extends AppCompatActivity {
                 currentFragment = new ProfileFragment();
                 break;
             case 2:
-                currentFragment = new HomeFragment();
-                Toast.makeText(this, "Set Jadwal", Toast.LENGTH_SHORT).show();
+                currentFragment = new JadwalFragment();
                 break;
             case 3:
-                currentFragment = new HomeFragment();
-                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+                currentFragment = new AboutFragment();
                 break;
             case 4:
                 currentFragment = new HomeFragment();
