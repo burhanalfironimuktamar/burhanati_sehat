@@ -14,4 +14,24 @@
     <string name="title_activity_info_kalori">Informasi Kalori</string>
     <string name="title_activity_jadwal_diet">Jadwal Diet</string>
     <string name="title_activity_panduan">Panduan Pengguna</string>
+
+    <string-array name="guide">
+        <item>Pada halaman ini disediakan beberapa menu,
+            yaitu : Home, Profile, Set Jadwal, About, Tutup.
+            Anda dapat memilih masing-masing menu dengan
+            cara klik menu yang diinginkan.</item>
+        <item>Halaman ini adalah halaman utama.
+            Pada halaman ini anda mendapatkan informasi
+            jumlah kalori yang dibutuhkan dan kalori
+            yang telah diserap per hari.
+            Pada halaman ini juga disediakan menu tambahan
+            yang dapat dipilih dengan menekan tombol menu yang diinginkan</item>
+        <item>Halaman ini merupakan halaman profile, anda dapat memasukkan,
+            merubah dan menyimpan data anda.</item>
+        <item>Halaman ini digunakan untuk mengatur jadwal diet
+            anda dengan memilih tanggal mulai dan tanggal selesai.</item>
+        <item>Halaman ini digunakan untuk mendata serapan kalori yang anda konsumsi sehari-hari.</item>
+        <item>Halaman ini digunakan untuk mencari detail informasi dari makanan atau minuman yang anda inputkan.</item>
+        <item>Halaman ini digunakan untuk mendapatkan informasi detail dari jadwal diet yang sudah di set.</item>
+    </string-array>
 </resources>
