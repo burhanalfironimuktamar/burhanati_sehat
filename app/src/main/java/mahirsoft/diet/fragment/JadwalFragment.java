@@ -65,6 +65,9 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
         edit_mulai.setOnTouchListener(this);
         edit_selesai.setOnTouchListener(this);
         btnSetJadwal.setOnClickListener(this);
+
+        edit_mulai.setText(DataPref.getTglMulai(getActivity()));
+        edit_selesai.setText(DataPref.getTglSelesai(getActivity()));
     }
 
     private DatePickerDialog.OnDateSetListener selesaiListener = new DatePickerDialog.OnDateSetListener() {

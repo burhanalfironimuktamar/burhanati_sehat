@@ -70,7 +70,17 @@ public class DataPref {
         Log.d("", "hans getberat" + berat);
         return berat;
     }
+    public static void setTinggi(int tinggi) {
+        mEditor = mSharedPreferences.edit();
+        mEditor.putInt(Constant.PREF_TINGGI, tinggi);
+        mEditor.commit();
+    }
 
+    public static int getTinggi(Context context) {
+        mSharedPreferences = context.getSharedPreferences(Constant.PREF_NAME,
+                Context.MODE_PRIVATE);
+        return mSharedPreferences.getInt(Constant.PREF_TINGGI, 0);
+    }
     public static void setDarah(String darah) {
         mEditor = mSharedPreferences.edit();
         mEditor.putString(Constant.PREF_DARAH, darah);
@@ -112,5 +122,17 @@ public class DataPref {
                 Context.MODE_PRIVATE);
         tglSelesai = mSharedPreferences.getString(Constant.PREF_TGL_SELESAI, "");
         return tglSelesai;
+    }
+
+    public static void setKaloriPerHari(long kaloriPerHari) {
+        mEditor = mSharedPreferences.edit();
+        mEditor.putLong(Constant.PREF_KALORI_PERHARI, kaloriPerHari);
+        mEditor.commit();
+    }
+
+    public static long getKaloriPerHari(Context context) {
+        mSharedPreferences = context.getSharedPreferences(Constant.PREF_NAME,
+                Context.MODE_PRIVATE);
+        return mSharedPreferences.getLong(Constant.PREF_KALORI_PERHARI, 0);
     }
 }

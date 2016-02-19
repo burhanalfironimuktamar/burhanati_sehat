@@ -14,4 +14,8 @@
     <item name="btn_panduan" type="id"/>
     <item name="container" type="id"/>
     <item name="progress" type="id"/>
+    <item name="title" type="id"/>
+    <item name="list" type="id"/>
+    <item name="date" type="id"/>
+    <item name="card_view" type="id"/>
 </resources>

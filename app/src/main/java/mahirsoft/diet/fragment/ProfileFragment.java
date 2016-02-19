@@ -18,16 +18,17 @@ import android.widget.Toast;
 import mahirsoft.diet.R;
 import mahirsoft.diet.activity.DietSehatActivity;
 import mahirsoft.diet.utils.DataPref;
+import mahirsoft.diet.utils.Utils;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
-    private EditText txtNama, txtUmur, txtBerat;
+    private EditText txtNama, txtUmur, txtBerat, txtTinggi;
     private Spinner spinneDarah;
     private RadioButton rdL, rdP;
     private RadioGroup rdGroup;
     private Button btnSimpan;
     private String nama, JK, darah;
-    private int umur, berat;
+    private int umur, berat, tinggi;
     private boolean isFirst = false;
 
     public ProfileFragment() {
@@ -63,6 +64,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         txtNama = (EditText) view.findViewById(R.id.edit_nama);
         txtUmur = (EditText) view.findViewById(R.id.edit_umur);
         txtBerat = (EditText) view.findViewById(R.id.edit_berat);
+        txtTinggi = (EditText) view.findViewById(R.id.edit_tinggi);
         rdL = (RadioButton) view.findViewById(R.id.radioMale);
         rdP = (RadioButton) view.findViewById(R.id.radioFemale);
         rdGroup = (RadioGroup) view.findViewById(R.id.radioSex);
@@ -83,6 +85,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         JK = DataPref.getJK(getActivity());
         berat = DataPref.getBerat(getActivity());
         darah = DataPref.getDarah(getActivity());
+        tinggi = DataPref.getTinggi(getActivity());
 
         if (nama.length() > 0) {
             txtNama.setText(nama);
@@ -100,6 +103,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (berat > 0) {
             txtBerat.setText(berat + "");
         }
+
+        if (tinggi > 0){
+            txtTinggi.setText(tinggi+"");
+        }
+
         if (darah.equalsIgnoreCase("A")) {
             spinneDarah.setSelection(0);
         } else if (darah.equalsIgnoreCase("B")) {
@@ -136,6 +144,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 berat = 0;
             }
 
+            String strTinggi = txtTinggi.getText().toString().trim();
+            if (strBerat.length() > 0) {
+                tinggi = Integer.parseInt(strTinggi);
+            } else {
+                tinggi = 0;
+            }
+
             darah = spinneDarah.getSelectedItem().toString().trim();
 
             if (isValid()) {
@@ -144,6 +159,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 DataPref.setJK(JK);
                 DataPref.setBerat(berat);
                 DataPref.setDarah(darah);
+                DataPref.setKaloriPerHari(Utils.kaloriPerHari(JK, berat, tinggi, umur));
                 if (isFirst) {
                     startActivity(new Intent(getActivity(), DietSehatActivity.class));
                     getActivity().finish();

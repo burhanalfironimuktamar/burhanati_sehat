@@ -14,4 +14,6 @@
     <string name="title_activity_info_kalori">Informasi Kalori</string>
     <string name="title_activity_jadwal_diet">Jadwal Diet</string>
     <string name="title_activity_panduan">Panduan Pengguna</string>
+    <string name="title_activity_info_jadwaldiet">Informasi Jadwal Diet</string>
+    <string name="sum_calory_now">Jumlah kalori untuk hari ini adalah </string>
 </resources>
