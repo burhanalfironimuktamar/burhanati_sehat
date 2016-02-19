@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import org.json.JSONArray;
+
 import mahirsoft.diet.R;
 import mahirsoft.diet.fragment.ProfileFragment;
 import mahirsoft.diet.utils.DataPref;
+import mahirsoft.diet.utils.Utils;
 
 public class ProfileActivity extends AppCompatActivity {
     private String name;

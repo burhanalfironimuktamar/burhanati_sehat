@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class AppDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String DATABASE_NAME = "diet.db";
 
@@ -16,12 +16,12 @@ public class AppDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-//        sqLiteDatabase.execSQL(City.SQL_CREATE_TABLE);
+        sqLiteDatabase.execSQL(Food.SQL_CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
-//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + City.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Food.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }
