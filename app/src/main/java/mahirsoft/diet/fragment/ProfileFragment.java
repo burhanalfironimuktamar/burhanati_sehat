@@ -1,6 +1,7 @@
 package mahirsoft.diet.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,10 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import mahirsoft.diet.R;
+import mahirsoft.diet.activity.DietSehatActivity;
 import mahirsoft.diet.utils.DataPref;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
@@ -21,16 +24,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private EditText txtNama, txtUmur, txtBerat;
     private Spinner spinneDarah;
     private RadioButton rdL, rdP;
+    private RadioGroup rdGroup;
     private Button btnSimpan;
     private String nama, JK, darah;
     private int umur, berat;
+    private boolean isFirst = false;
 
     public ProfileFragment() {
     }
 
-    public static ProfileFragment newInstance() {
+    public static ProfileFragment newInstance(boolean isFirst) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
+        args.putBoolean("isFirst", isFirst);
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,6 +45,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            isFirst = getArguments().getBoolean("isFirst");
         }
     }
 
@@ -58,6 +65,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         txtBerat = (EditText) view.findViewById(R.id.edit_berat);
         rdL = (RadioButton) view.findViewById(R.id.radioMale);
         rdP = (RadioButton) view.findViewById(R.id.radioFemale);
+        rdGroup = (RadioGroup) view.findViewById(R.id.radioSex);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.golongan_darah, android.R.layout.simple_spinner_item);
@@ -82,11 +90,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (umur > 0) {
             txtUmur.setText(umur + "");
         }
+
         if (JK.equalsIgnoreCase("L")) {
-            rdL.setSelected(true);
+            rdL.setChecked(true);
         } else {
-            rdP.setSelected(true);
+            rdP.setChecked(true);
         }
+
         if (berat > 0) {
             txtBerat.setText(berat + "");
         }
@@ -105,23 +115,27 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v == btnSimpan) {
             nama = txtNama.getText().toString().trim();
+
             String strUmur = txtUmur.getText().toString().trim();
             if (strUmur.length() > 0) {
                 umur = Integer.parseInt(strUmur);
             } else {
                 umur = 0;
             }
-            if (rdL.isSelected()) {
+
+            if (rdL.isChecked()) {
                 JK = "L";
             } else {
                 JK = "P";
             }
+
             String strBerat = txtBerat.getText().toString().trim();
             if (strBerat.length() > 0) {
                 berat = Integer.parseInt(strBerat);
             } else {
                 berat = 0;
             }
+
             darah = spinneDarah.getSelectedItem().toString().trim();
 
             if (isValid()) {
@@ -130,7 +144,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 DataPref.setJK(JK);
                 DataPref.setBerat(berat);
                 DataPref.setDarah(darah);
-                Toast.makeText(getActivity(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+                if (isFirst) {
+                    startActivity(new Intent(getActivity(), DietSehatActivity.class));
+                    getActivity().finish();
+                } else {
+                    Toast.makeText(getActivity(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+                }
             }
 
         }

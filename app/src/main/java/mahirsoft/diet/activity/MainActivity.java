@@ -13,16 +13,23 @@ import mahirsoft.diet.fragment.AboutFragment;
 import mahirsoft.diet.fragment.HomeFragment;
 import mahirsoft.diet.fragment.JadwalFragment;
 import mahirsoft.diet.fragment.ProfileFragment;
+import mahirsoft.diet.utils.DataPref;
 
 public class MainActivity extends AppCompatActivity {
 
     private Fragment currentFragment;
+    private String nameProfile = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        selectItem(0);
+        nameProfile = DataPref.getNama(this);
+        if (nameProfile.length() > 0) {
+            selectItem(0);
+        } else {
+            selectItem(1);
+        }
     }
 
     @Override
@@ -53,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void selectItem(int position){
-        switch (position){
+    private void selectItem(int position) {
+        switch (position) {
             case 0:
                 currentFragment = new HomeFragment();
                 break;
@@ -87,20 +94,19 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.container, currentFragment).commit();
     }
 
-    public void onClickDataSerapan(View view){
+    public void onClickDataSerapan(View view) {
         selectItem(4);
     }
 
-    public void onClickKalori(View view){
+    public void onClickKalori(View view) {
         selectItem(5);
     }
 
-    public void onCLickJadwal(View view){
+    public void onCLickJadwal(View view) {
         selectItem(6);
     }
 
-    public void onClickPanduan(View view){
+    public void onClickPanduan(View view) {
         selectItem(7);
     }
-
 }
