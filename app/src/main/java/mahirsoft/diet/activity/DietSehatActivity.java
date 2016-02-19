@@ -1,5 +1,7 @@
 package mahirsoft.diet.activity;
 
+import android.content.ContentValues;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,19 +13,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
+import java.util.List;
+
 import mahirsoft.diet.R;
+import mahirsoft.diet.data.Food;
 import mahirsoft.diet.fragment.AboutFragment;
 import mahirsoft.diet.fragment.HomeFragment;
 import mahirsoft.diet.fragment.JadwalFragment;
 import mahirsoft.diet.fragment.ProfileFragment;
+import mahirsoft.diet.utils.Utils;
 
 public class DietSehatActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Fragment currentFragment;
     private NavigationView navigationView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +48,11 @@ public class DietSehatActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        progressBar = (ProgressBar) findViewById(R.id.progress);
         navigationView.setNavigationItemSelectedListener(this);
 
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
+        new SaveData().execute();
     }
 
     @Override
@@ -155,5 +167,29 @@ public class DietSehatActivity extends AppCompatActivity
 
     private void exitApp() {
         finish();
+    }
+
+    private class SaveData extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressBar.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            JSONArray jsonArray = Utils.getData(DietSehatActivity.this);
+            List<ContentValues> cv = Food.fromJSONArray(jsonArray);
+
+            getContentResolver().delete(Food.CONTENT_URI, null, null);
+            getContentResolver().bulkInsert(Food.CONTENT_URI, cv.toArray(new ContentValues[cv.size()]));
+            return null;
+        }
     }
 }

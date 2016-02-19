@@ -13,4 +13,5 @@
     <item name="btn_jadwal" type="id"/>
     <item name="btn_panduan" type="id"/>
     <item name="container" type="id"/>
+    <item name="progress" type="id"/>
 </resources>

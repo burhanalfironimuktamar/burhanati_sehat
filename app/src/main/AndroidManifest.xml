@@ -8,6 +8,13 @@
         android:label="@string/title_activity_profile"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
+        <provider
+            android:name=".data.AppContentProvider"
+            android:authorities="mahirsoft.diet.contentprovider"
+            android:exported="false"
+            android:syncable="true" />
+
         <activity android:name=".activity.ProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
