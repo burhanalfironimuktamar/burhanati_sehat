@@ -1,5 +1,6 @@
 package mahirsoft.diet.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import mahirsoft.diet.R;
 import mahirsoft.diet.fragment.AboutFragment;
@@ -121,36 +121,24 @@ public class DietSehatActivity extends AppCompatActivity
             case 4:
                 exitApp();
                 break;
-            case 5:
-                currentFragment = new HomeFragment();
-                Toast.makeText(this, "Kalori", Toast.LENGTH_SHORT).show();
-                break;
-            case 6:
-                currentFragment = new HomeFragment();
-                Toast.makeText(this, "Jadwal", Toast.LENGTH_SHORT).show();
-                break;
-            case 7:
-                currentFragment = new HomeFragment();
-                Toast.makeText(this, "Panduan", Toast.LENGTH_SHORT).show();
-                break;
         }
         getSupportFragmentManager().beginTransaction().add(R.id.container, currentFragment).commit();
     }
 
     public void onClickDataSerapan(View view) {
-        selectItem(4);
+        startActivity(new Intent(this, DataSerapanActivity.class));
     }
 
     public void onClickKalori(View view) {
-        selectItem(5);
+        startActivity(new Intent(this, InfoKaloriActivity.class));
     }
 
     public void onCLickJadwal(View view) {
-        selectItem(6);
+        startActivity(new Intent(this, JadwalDietActivity.class));
     }
 
     public void onClickPanduan(View view) {
-        selectItem(7);
+        startActivity(new Intent(this, PanduanActivity.class));
     }
 
     private void exitApp() {

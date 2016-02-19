@@ -11,13 +11,50 @@
         <activity android:name=".activity.ProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.DietSehatActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.DataSerapanActivity"
+            android:label="@string/title_activity_data_serapan"
+            android:parentActivityName=".activity.DietSehatActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mahirsoft.diet.activity.DietSehatActivity" />
+        </activity>
+        <activity
+            android:name=".activity.InfoKaloriActivity"
+            android:label="@string/title_activity_info_kalori"
+            android:parentActivityName=".activity.DietSehatActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mahirsoft.diet.activity.DietSehatActivity" />
+        </activity>
+        <activity
+            android:name=".activity.JadwalDietActivity"
+            android:label="@string/title_activity_jadwal_diet"
+            android:parentActivityName=".activity.DietSehatActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mahirsoft.diet.activity.DietSehatActivity" />
+        </activity>
+        <activity
+            android:name=".activity.PanduanActivity"
+            android:label="@string/title_activity_panduan"
+            android:parentActivityName=".activity.DietSehatActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mahirsoft.diet.activity.DietSehatActivity" />
+        </activity>
     </application>
 
 </manifest>

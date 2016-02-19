@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="mahirsoft.diet.activity.DataSerapanActivity"
+    tools:showIn="@layout/activity_data_serapan">
+
+    <TextView
+        android:id="@+id/title_data_serapan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/title_activity_data_serapan"
+        android:textColor="@color/text_black_primary"
+        android:textSize="@dimen/font_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_data_serapan"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Makanan Minuman"
+        android:textColor="@color/text_black_primary" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoComplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/desc"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:hint="cari..."
+        android:textColor="@color/text_black_primary"
+        android:textColorHint="@color/text_black_hint"
+        android:textSize="@dimen/font_body" />
+
+    <Button
+        android:id="@+id/btn_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/autoComplete"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@color/colorAccent"
+        android:text="reset data"
+        android:textColor="@color/text_white_primary" />
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_reset"
+        android:layout_marginTop="@dimen/widget_margin"
+        card_view:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_list"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="NAMA MAKANAN/MINUMAN"
+                android:textColor="@color/text_black_primary" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_list"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="KALORI"
+                android:textColor="@color/text_black_primary" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_view"/>
+</RelativeLayout>

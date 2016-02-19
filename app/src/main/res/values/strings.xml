@@ -10,4 +10,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_data_serapan">Data Serapan Harian</string>
+    <string name="title_activity_info_kalori">Informasi Kalori</string>
+    <string name="title_activity_jadwal_diet">Jadwal Diet</string>
+    <string name="title_activity_panduan">Panduan Pengguna</string>
 </resources>

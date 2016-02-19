@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="mahirsoft.diet.activity.InfoKaloriActivity"
+    tools:showIn="@layout/activity_info_kalori">
+
+    <TextView
+        android:id="@+id/title_info_kalori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="Informasi Makanan dan Minuman"
+        android:textColor="@color/text_black_primary"
+        android:textSize="@dimen/font_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Makanan Minuman"
+        android:textColor="@color/text_black_primary" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoComplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:hint="cari..."
+        android:textColor="@color/text_black_primary"
+        android:textColorHint="@color/text_black_hint"
+        android:textSize="@dimen/font_body" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Nama makanan dan minuman"
+        android:textColor="@color/text_black_hint"
+        android:textSize="@dimen/font_caption"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtNama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nama makanan dan minuman"
+        android:textColor="@color/text_black_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Jumlah kalori"
+        android:textColor="@color/text_black_hint"
+        android:textSize="@dimen/font_caption"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtJmlKalori"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jumlah kalori"
+        android:textColor="@color/text_black_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Manfaat"
+        android:textColor="@color/text_black_hint"
+        android:textSize="@dimen/font_caption"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtManfaat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manfaat"
+        android:textColor="@color/text_black_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Uraian"
+        android:textColor="@color/text_black_hint"
+        android:textSize="@dimen/font_caption"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtUraian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Uraian"
+        android:textColor="@color/text_black_primary" />
+</LinearLayout>
