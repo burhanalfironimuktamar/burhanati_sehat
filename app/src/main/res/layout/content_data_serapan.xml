@@ -52,7 +52,7 @@
         android:layout_below="@id/autoComplete"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@color/colorAccent"
-        android:text="insert data"
+        android:text="insert"
         android:textColor="@color/text_white_primary"
         android:padding="@dimen/widget_margin"/>
     <Button
@@ -64,7 +64,7 @@
         android:layout_below="@id/autoComplete"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@color/colorAccent"
-        android:text="reset data"
+        android:text="reset"
         android:textColor="@color/text_white_primary"
         android:padding="@dimen/widget_margin"/>
 
