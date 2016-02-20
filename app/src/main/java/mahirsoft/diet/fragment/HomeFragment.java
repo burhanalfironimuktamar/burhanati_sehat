@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
             terserap = cursor.getInt(cursor.getColumnIndexOrThrow("sum("+Serapan.COLUMN_KALORI+")"));
         }
         cursor.close();
-        kaloriTerserap.setText("Jumlah kalori terserap per hari ini adalah " + terserap);
+        kaloriTerserap.setText("Jumlah kalori terserap hari ini adalah " + terserap);
         if (terserap <= DataPref.getKaloriPerHari(getActivity()) * 0.1) {
             mAvatar.setImageResource(R.drawable.sad);
         } else if (terserap <= DataPref.getKaloriPerHari(getActivity()) * 0.5) {
