@@ -19,6 +19,8 @@ public class AppContentProvider extends ContentProvider {
     private static final String LOG_TAG = "AppContentProvider";
     public static final int FOOD = 100;
     public static final int FOOD_ITEM = 1001;
+    public static final int SERAPAN = 110;
+    public static final int SERAPAN_ITEM = 1101;
 
     public static final UriMatcher sUriMatcher = buildUriMatcher();
 
@@ -65,6 +67,12 @@ public class AppContentProvider extends ContentProvider {
                     returnUri = Food.buildUri(_id);
                 }
                break;
+            case SERAPAN:
+                _id = db.insert(Serapan.TABLE_NAME, null, values);
+                if (_id > 0) {
+                    returnUri = Serapan.buildUri(_id);
+                }
+                break;
         }
 
         if (_id == 0) {
@@ -84,6 +92,11 @@ public class AppContentProvider extends ContentProvider {
             case FOOD:
                 queryBuilder.setTables(Food.TABLE_NAME);
                 break;
+            case SERAPAN_ITEM:
+                queryBuilder.appendWhere(Serapan._ID + "=" + ContentUris.parseId(uri));
+            case SERAPAN:
+                queryBuilder.setTables(Serapan.TABLE_NAME);
+                break;
         }
 
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
@@ -102,6 +115,10 @@ public class AppContentProvider extends ContentProvider {
                 return Food.CONTENT_TYPE;
             case FOOD_ITEM:
                return Food.CONTENT_ITEM_TYPE;
+            case SERAPAN:
+                return Serapan.CONTENT_TYPE;
+            case SERAPAN_ITEM:
+                return Serapan.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -114,6 +131,9 @@ public class AppContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case FOOD:
                 count = db.delete(Food.TABLE_NAME, selection, selectionArgs);
+                break;
+            case SERAPAN:
+                count = db.delete(Serapan.TABLE_NAME, selection, selectionArgs);
                 break;
         }
         getContext().getContentResolver().notifyChange(uri, null);
@@ -128,6 +148,9 @@ public class AppContentProvider extends ContentProvider {
             case FOOD:
                 count = db.update(Food.TABLE_NAME, values, selection, selectionArgs);
                 break;
+            case SERAPAN:
+                count = db.update(Serapan.TABLE_NAME, values, selection, selectionArgs);
+                break;
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
@@ -137,6 +160,8 @@ public class AppContentProvider extends ContentProvider {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(AppData.CONTENT_AUTHORITY, Food.PATH_FOOD, FOOD);
         uriMatcher.addURI(AppData.CONTENT_AUTHORITY, Food.PATH_FOOD_ITEM, FOOD_ITEM);
+        uriMatcher.addURI(AppData.CONTENT_AUTHORITY, Serapan.PATH_SERAPAN, SERAPAN);
+        uriMatcher.addURI(AppData.CONTENT_AUTHORITY, Serapan.PATH_SERAPAN_ITEM, SERAPAN_ITEM);
         return uriMatcher;
     }
 

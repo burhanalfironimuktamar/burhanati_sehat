@@ -18,4 +18,5 @@
     <item name="list" type="id"/>
     <item name="date" type="id"/>
     <item name="card_view" type="id"/>
+    <item name="food" type="id"/>
 </resources>
