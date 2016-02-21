@@ -61,6 +61,7 @@ public class DataSerapanActivity extends AppCompatActivity implements View.OnCli
         foodCursor.close();
         autoCompleteAdapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, foods);
         autoComplete.setAdapter(autoCompleteAdapter);
+        autoComplete.setThreshold(1);
 
         listAdapter = new SerapanAdapter(this);
         list.setHasFixedSize(true);
@@ -88,7 +89,6 @@ public class DataSerapanActivity extends AppCompatActivity implements View.OnCli
         while (cursor.moveToNext()){
             ContentValues cv = new ContentValues();
             cv.put(Serapan.COLUMN_NAME, cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_NAME)));
-            cv.put(Serapan.COLUMN_CATEGORY, cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_CATEGORY)));
             cv.put(Serapan.COLUMN_GOLONGANDARAH, cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_GOLONGANDARAH)));
             cv.put(Serapan.COLUMN_KALORI, cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_KALORI)));
 

@@ -159,6 +159,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 DataPref.setJK(JK);
                 DataPref.setBerat(berat);
                 DataPref.setDarah(darah);
+                DataPref.setTinggi(tinggi);
                 DataPref.setKaloriPerHari(Utils.kaloriPerHari(JK, berat, tinggi, umur));
                 if (isFirst) {
                     startActivity(new Intent(getActivity(), DietSehatActivity.class));

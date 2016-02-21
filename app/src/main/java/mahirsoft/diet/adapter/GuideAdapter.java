@@ -34,25 +34,25 @@ public class GuideAdapter extends PagerAdapter {
         txtDesc.setText(description[position]);
         switch (position) {
             case 0:
-                img.setImageResource(R.drawable.male);
+                img.setImageResource(R.drawable.page_1);
                 break;
             case 1:
-                img.setImageResource(R.drawable.female);
+                img.setImageResource(R.drawable.page_2);
                 break;
             case 2:
-                img.setImageResource(R.drawable.female);
+                img.setImageResource(R.drawable.page_3);
                 break;
             case 3:
-                img.setImageResource(R.drawable.female);
+                img.setImageResource(R.drawable.page_4);
                 break;
             case 4:
-                img.setImageResource(R.drawable.female);
+                img.setImageResource(R.drawable.page_5);
                 break;
             case 5:
-                img.setImageResource(R.drawable.female);
+                img.setImageResource(R.drawable.page_6);
                 break;
             case 6:
-                img.setImageResource(R.drawable.female);
+                img.setImageResource(R.drawable.page_7);
                 break;
         }
         container.addView(layout);

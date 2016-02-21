@@ -34,18 +34,16 @@ public class Food extends AppData implements BaseColumns {
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_KALORI = "calory";
     public static final String COLUMN_GOLONGANDARAH = "golongandarah";
-    public static final String COLUMN_CATEGORY = "category";
 
     protected static final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " +
             _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             Food.COLUMN_NAME + " TEXT NOT NULL DEFAULT '', " +
             Food.COLUMN_KALORI + " TEXT NOT NULL DEFAULT '', " +
             Food.COLUMN_GOLONGANDARAH + " TEXT NOT NULL DEFAULT '', " +
-            Food.COLUMN_CATEGORY + " TEXT NOT NULL DEFAULT '', " +
             "UNIQUE (" + Food.COLUMN_NAME + ") ON CONFLICT REPLACE); ";
 
     public static final String[] COLUMNS = {
-            _ID, COLUMN_NAME, COLUMN_KALORI, COLUMN_GOLONGANDARAH, COLUMN_CATEGORY
+            _ID, COLUMN_NAME, COLUMN_KALORI, COLUMN_GOLONGANDARAH
     };
 
     public static List<ContentValues> fromJSONArray(JSONArray jsonArray) {

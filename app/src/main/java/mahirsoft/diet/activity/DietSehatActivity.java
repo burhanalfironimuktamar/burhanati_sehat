@@ -1,8 +1,9 @@
 package mahirsoft.diet.activity;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.os.AsyncTask;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,8 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 
@@ -34,7 +33,7 @@ public class DietSehatActivity extends AppCompatActivity
 
     private Fragment currentFragment;
     private NavigationView navigationView;
-    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class DietSehatActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        progressBar = (ProgressBar) findViewById(R.id.progress);
         navigationView.setNavigationItemSelectedListener(this);
 
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
@@ -162,13 +160,15 @@ public class DietSehatActivity extends AppCompatActivity
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-        }
+            progressDialog =new ProgressDialog(DietSehatActivity.this);
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+    }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            progressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
         }
 
         @Override

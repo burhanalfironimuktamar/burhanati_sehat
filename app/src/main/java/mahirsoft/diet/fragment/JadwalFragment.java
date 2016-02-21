@@ -2,6 +2,10 @@ package mahirsoft.diet.fragment;
 
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,9 +17,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import mahirsoft.diet.R;
+import mahirsoft.diet.data.Food;
+import mahirsoft.diet.data.JadwalDiet;
 import mahirsoft.diet.utils.DataPref;
 
 public class JadwalFragment extends Fragment implements View.OnTouchListener, View.OnClickListener {
@@ -25,6 +34,7 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
     private Calendar calendar;
     private int year, month, day;
     private String tglMulai, tglSelesai;
+    private ProgressDialog progressDialog;
 
     public JadwalFragment() {
         // Required empty public constructor
@@ -103,9 +113,7 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
             tglMulai = edit_mulai.getText().toString().trim();
             tglSelesai = edit_selesai.getText().toString().trim();
             if (isValid()) {
-                DataPref.setTglMulai(tglMulai);
-                DataPref.setTglSelesai(tglSelesai);
-                Toast.makeText(getActivity(), "Set jadwal berhasil", Toast.LENGTH_SHORT).show();
+                new SaveData().execute();
             }
         }
     }
@@ -122,4 +130,56 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
         return status;
     }
 
+    private class SaveData extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Saving...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressDialog.dismiss();
+            Toast.makeText(getActivity(), "Set jadwal berhasil", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            DataPref.setTglMulai(tglMulai);
+            DataPref.setTglSelesai(tglSelesai);
+            getActivity().getContentResolver().delete(JadwalDiet.CONTENT_URI, null, null);
+
+            try {
+                long selesai = new SimpleDateFormat("dd-MM-yyyy").parse(tglSelesai).getTime();
+                long mulai = new SimpleDateFormat("dd-MM-yyyy").parse(tglMulai).getTime();
+                int diff = (int) ((selesai - mulai) / (24 * 60 * 60 * 1000));
+                int kalori = (int) DataPref.getKaloriPerHari(getActivity());
+                String golonganDarah = DataPref.getDarah(getActivity());
+                for (int i = 0; i < diff + 1; i++) {
+                    int sumKalori = 0;
+                    String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date(mulai + (i * 24 * 60 * 60 * 1000)));
+                    while (sumKalori < kalori) {
+                        Cursor cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"}, Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "'", null, "RANDOM() LIMIT 1");
+                        if (cursor.moveToNext()) {
+                            int colory = cursor.getInt(cursor.getColumnIndexOrThrow(JadwalDiet.COLUMN_KALORI));
+                            ContentValues cv = new ContentValues();
+                            cv.put(JadwalDiet.COLUMN_NAME, cursor.getString(cursor.getColumnIndexOrThrow(JadwalDiet.COLUMN_NAME)));
+                            cv.put(JadwalDiet.COLUMN_KALORI, colory);
+                            cv.put(JadwalDiet.COLUMN_GOLONGANDARAH, cursor.getString(cursor.getColumnIndexOrThrow(JadwalDiet.COLUMN_GOLONGANDARAH)));
+                            cv.put(JadwalDiet.COLUMN_DATE, date);
+                            getActivity().getContentResolver().insert(JadwalDiet.CONTENT_URI, cv);
+                            sumKalori += colory;
+                        }
+                        cursor.close();
+                    }
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }

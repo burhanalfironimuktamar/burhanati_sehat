@@ -35,5 +35,4 @@
         <item>Halaman ini digunakan untuk mendapatkan informasi detail dari jadwal diet yang sudah di set.</item>
     </string-array>
     <string name="title_activity_info_jadwaldiet">Informasi Jadwal Diet</string>
-    <string name="sum_calory_now">Jumlah kalori untuk hari ini adalah </string>
 </resources>

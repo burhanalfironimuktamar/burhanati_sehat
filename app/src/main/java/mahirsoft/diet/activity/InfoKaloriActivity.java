@@ -51,6 +51,7 @@ public class InfoKaloriActivity extends AppCompatActivity implements View.OnClic
         foodCursor.close();
         autoCompleteAdapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, foods);
         autoComplete.setAdapter(autoCompleteAdapter);
+        autoComplete.setThreshold(1);
         txtTitle.setPaintFlags(txtTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         btnLihat.setOnClickListener(this);
@@ -66,6 +67,8 @@ public class InfoKaloriActivity extends AppCompatActivity implements View.OnClic
                 kalori.setText(cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_KALORI)));
             }
             cursor.close();
+
+            autoComplete.setText("");
         }
     }
 }

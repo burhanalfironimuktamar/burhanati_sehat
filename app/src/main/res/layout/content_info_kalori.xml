@@ -91,13 +91,15 @@
         android:text="Manfaat"
         android:textColor="@color/text_black_hint"
         android:textSize="@dimen/font_caption"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/txtManfaat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_black_primary" />
+        android:textColor="@color/text_black_primary"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -106,11 +108,13 @@
         android:text="Uraian"
         android:textColor="@color/text_black_hint"
         android:textSize="@dimen/font_caption"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/txtUraian"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_black_primary" />
+        android:textColor="@color/text_black_primary"
+        android:visibility="gone"/>
 </LinearLayout>
