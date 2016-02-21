@@ -22,12 +22,11 @@ import mahirsoft.diet.adapter.SerapanAdapter;
 import mahirsoft.diet.data.Food;
 import mahirsoft.diet.data.Serapan;
 
-public class DataSerapanActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
+public class DataSerapanActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     private TextView txtTitle;
     private AutoCompleteTextView autoComplete;
     private Button btnInsert;
-    private Button btnReset;
     private RecyclerView list;
     private SerapanAdapter listAdapter;
     private ArrayAdapter<String> autoCompleteAdapter;
@@ -48,13 +47,12 @@ public class DataSerapanActivity extends AppCompatActivity implements View.OnCli
         txtTitle = (TextView) findViewById(R.id.title_data_serapan);
         autoComplete = (AutoCompleteTextView) findViewById(R.id.autoComplete);
         btnInsert = (Button) findViewById(R.id.btn_insert);
-        btnReset = (Button) findViewById(R.id.btn_reset);
         list = (RecyclerView) findViewById(R.id.list);
 
         Cursor foodCursor = getContentResolver().query(Food.CONTENT_URI, new String[]{Food.COLUMN_NAME}, null, null, null);
         String[] foods = new String[foodCursor.getCount()];
         int i = 0;
-        while (foodCursor.moveToNext()){
+        while (foodCursor.moveToNext()) {
             foods[i] = foodCursor.getString(foodCursor.getColumnIndexOrThrow(Food.COLUMN_NAME));
             i++;
         }
@@ -70,23 +68,20 @@ public class DataSerapanActivity extends AppCompatActivity implements View.OnCli
 
         txtTitle.setPaintFlags(txtTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        btnReset.setOnClickListener(this);
         btnInsert.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == btnReset){
-            getContentResolver().delete(Serapan.CONTENT_URI, null, null);
-        }else if (v == btnInsert){
+        if (v == btnInsert) {
             insert();
         }
     }
 
-    private void insert(){
+    private void insert() {
         String food = autoComplete.getText().toString();
-        Cursor cursor = getContentResolver().query(Food.CONTENT_URI, Food.COLUMNS, Food.COLUMN_NAME+"='"+food+"'", null, null);
-        while (cursor.moveToNext()){
+        Cursor cursor = getContentResolver().query(Food.CONTENT_URI, Food.COLUMNS, Food.COLUMN_NAME + "='" + food + "'", null, null);
+        while (cursor.moveToNext()) {
             ContentValues cv = new ContentValues();
             cv.put(Serapan.COLUMN_NAME, cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_NAME)));
             cv.put(Serapan.COLUMN_GOLONGANDARAH, cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_GOLONGANDARAH)));
@@ -100,7 +95,7 @@ public class DataSerapanActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, Serapan.CONTENT_URI, Serapan.COLUMNS, null, null, Serapan.TABLE_NAME + "." + Serapan._ID + " ASC");
+        return new CursorLoader(this, Serapan.CONTENT_URI, new String[]{"*"}, null, null, Serapan.TABLE_NAME + "." + Serapan._ID + " ASC");
     }
 
     @Override

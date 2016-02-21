@@ -47,14 +47,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Umur" />
+                android:text="Tanggal Lahir" />
 
             <EditText
                 android:id="@+id/edit_umur"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:hint="umur"
+                android:drawableRight="@drawable/ic_date_range_black_24dp"
+                android:hint="tanggal lahir"
                 android:inputType="number"
                 android:textSize="@dimen/font_body" />
         </LinearLayout>

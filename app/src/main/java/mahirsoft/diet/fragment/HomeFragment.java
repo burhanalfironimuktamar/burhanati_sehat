@@ -45,6 +45,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        validDate();
+        kalori.setText("Jumlah kalori per hari adalah " + DataPref.getKaloriPerHari(getActivity()));
         txtName.setText("Selamat datang " + DataPref.getNama(getActivity()));
 
         Cursor cursor = getActivity().getContentResolver().query(Serapan.CONTENT_URI, new String[]{"sum(" + Serapan.COLUMN_KALORI + ")"}, null, null, null);
@@ -74,5 +76,17 @@ public class HomeFragment extends Fragment {
             kalori.setText("Jumlah kalori per hari adalah " + DataPref.getKaloriPerHari(getActivity()));
         }
         k.close();
+    }
+
+    private void validDate() {
+        String date = DataPref.getSerapan(getActivity());
+        final Calendar c = Calendar.getInstance();
+        String currentDate = c.get(Calendar.YEAR) + "" + (c.get(Calendar.MONTH) - 1) + "" + c.get(Calendar.DAY_OF_MONTH);
+        if (date.length() > 0) {
+            if (!date.equalsIgnoreCase(currentDate)) {
+                getActivity().getContentResolver().delete(Serapan.CONTENT_URI, null, null);
+            }
+        }
+        DataPref.setDateSerapan(currentDate);
     }
 }

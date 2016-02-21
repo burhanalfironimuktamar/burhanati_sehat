@@ -1,35 +1,49 @@
 package mahirsoft.diet.fragment;
 
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import mahirsoft.diet.R;
 import mahirsoft.diet.activity.DietSehatActivity;
 import mahirsoft.diet.utils.DataPref;
 import mahirsoft.diet.utils.Utils;
 
-public class ProfileFragment extends Fragment implements View.OnClickListener {
+public class ProfileFragment extends Fragment implements View.OnClickListener, View.OnTouchListener {
 
     private EditText txtNama, txtUmur, txtBerat, txtTinggi;
     private Spinner spinneDarah;
     private RadioButton rdL, rdP;
     private RadioGroup rdGroup;
     private Button btnSimpan;
-    private String nama, JK, darah;
+    private String nama, JK, darah, ttl;
     private int umur, berat, tinggi;
     private boolean isFirst = false;
+
+    private int year;
+    private int month;
+    private int day;
+
+    private int currYear;
+    private int currMonth;
+    private int currDay;
+
 
     public ProfileFragment() {
     }
@@ -48,6 +62,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
             isFirst = getArguments().getBoolean("isFirst");
         }
+        final Calendar c = Calendar.getInstance();
+
+        currYear = c.get(Calendar.YEAR);
+        currMonth = c.get(Calendar.MONTH);
+        currDay = c.get(Calendar.DAY_OF_MONTH);
     }
 
     @Override
@@ -75,6 +94,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         spinneDarah.setAdapter(adapter);
 
         btnSimpan.setOnClickListener(this);
+        txtUmur.setOnTouchListener(this);
 
         initView();
     }
@@ -82,6 +102,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private void initView() {
         nama = DataPref.getNama(getActivity());
         umur = DataPref.getUmur(getActivity());
+        ttl = DataPref.getTTL(getActivity());
         JK = DataPref.getJK(getActivity());
         berat = DataPref.getBerat(getActivity());
         darah = DataPref.getDarah(getActivity());
@@ -90,8 +111,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (nama.length() > 0) {
             txtNama.setText(nama);
         }
-        if (umur > 0) {
-            txtUmur.setText(umur + "");
+        if (ttl.length() > 0) {
+            txtUmur.setText(ttl);
         }
 
         if (JK.equalsIgnoreCase("L")) {
@@ -104,8 +125,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             txtBerat.setText(berat + "");
         }
 
-        if (tinggi > 0){
-            txtTinggi.setText(tinggi+"");
+        if (tinggi > 0) {
+            txtTinggi.setText(tinggi + "");
         }
 
         if (darah.equalsIgnoreCase("A")) {
@@ -124,9 +145,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (v == btnSimpan) {
             nama = txtNama.getText().toString().trim();
 
-            String strUmur = txtUmur.getText().toString().trim();
-            if (strUmur.length() > 0) {
-                umur = Integer.parseInt(strUmur);
+            String ttl = txtUmur.getText().toString().trim();
+            if (ttl.length() > 0) {
+                String[] date = ttl.split("-");
+                umur = currYear - Integer.parseInt(date[2]);
+                if (currMonth - Integer.parseInt(date[1]) < 0) {
+                    umur--;
+                }
             } else {
                 umur = 0;
             }
@@ -155,6 +180,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
             if (isValid()) {
                 DataPref.setNama(nama);
+                DataPref.setTTL(ttl);
                 DataPref.setUmur(umur);
                 DataPref.setJK(JK);
                 DataPref.setBerat(berat);
@@ -189,4 +215,44 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
         return status;
     }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        boolean status = false;
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (v == txtUmur) {
+                if (ttl.length() > 0) {
+                    String[] date = ttl.split("-");
+                    day = Integer.parseInt(date[0]);
+                    month = Integer.parseInt(date[1]) - 1;
+                    year = Integer.parseInt(date[2]);
+                } else {
+                    year = currYear;
+                    month = currMonth;
+                    day = currDay;
+                }
+                new DatePickerDialog(getActivity(), datePickerListener,
+                        year, month, day).show();
+                status = true;
+            }
+        }
+
+        return status;
+    }
+
+
+    private DatePickerDialog.OnDateSetListener datePickerListener
+            = new DatePickerDialog.OnDateSetListener() {
+
+        public void onDateSet(DatePicker view, int selectedYear,
+                              int selectedMonth, int selectedDay) {
+            year = selectedYear;
+            month = selectedMonth;
+            day = selectedDay;
+
+            txtUmur.setText(new StringBuilder().append(day).append("-").append(month + 1)
+                    .append("-").append(year));
+
+        }
+    };
 }
