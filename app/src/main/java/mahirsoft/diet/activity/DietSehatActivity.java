@@ -51,7 +51,6 @@ public class DietSehatActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
-        new SaveData().execute();
     }
 
     @Override
@@ -156,29 +155,5 @@ public class DietSehatActivity extends AppCompatActivity
         finish();
     }
 
-    private class SaveData extends AsyncTask<Void, Void, Void>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog =new ProgressDialog(DietSehatActivity.this);
-            progressDialog.setMessage("Loading...");
-            progressDialog.show();
-    }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            progressDialog.dismiss();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            JSONArray jsonArray = Utils.getData(DietSehatActivity.this);
-            List<ContentValues> cv = Food.fromJSONArray(jsonArray);
-
-            getContentResolver().delete(Food.CONTENT_URI, null, null);
-            getContentResolver().bulkInsert(Food.CONTENT_URI, cv.toArray(new ContentValues[cv.size()]));
-            return null;
-        }
-    }
 }

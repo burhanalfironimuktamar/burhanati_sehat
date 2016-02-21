@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import mahirsoft.diet.R;
 import mahirsoft.diet.data.Serapan;
 import mahirsoft.diet.utils.DataPref;
@@ -41,12 +43,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        validDate();
         kalori.setText("Jumlah kalori per hari adalah " + DataPref.getKaloriPerHari(getActivity()));
         txtName.setText("Selamat datang " + DataPref.getNama(getActivity()));
 
-        Cursor cursor = getActivity().getContentResolver().query(Serapan.CONTENT_URI, new String[]{"sum("+Serapan.COLUMN_KALORI+")"}, null, null, null);
-        if (cursor.moveToNext()){
-            terserap = cursor.getInt(cursor.getColumnIndexOrThrow("sum("+Serapan.COLUMN_KALORI+")"));
+        Cursor cursor = getActivity().getContentResolver().query(Serapan.CONTENT_URI, new String[]{"sum(" + Serapan.COLUMN_KALORI + ")"}, null, null, null);
+        if (cursor.moveToNext()) {
+            terserap = cursor.getInt(cursor.getColumnIndexOrThrow("sum(" + Serapan.COLUMN_KALORI + ")"));
         }
         cursor.close();
         kaloriTerserap.setText("Jumlah kalori terserap hari ini adalah " + terserap);
@@ -57,5 +60,17 @@ public class HomeFragment extends Fragment {
         } else {
             mAvatar.setImageResource(R.drawable.pleased);
         }
+    }
+
+    private void validDate() {
+        String date = DataPref.getSerapan(getActivity());
+        final Calendar c = Calendar.getInstance();
+        String currentDate = c.get(Calendar.YEAR) + "" + (c.get(Calendar.MONTH) - 1) + "" + c.get(Calendar.DAY_OF_MONTH);
+        if (date.length() > 0) {
+            if (!date.equalsIgnoreCase(currentDate)) {
+                getActivity().getContentResolver().delete(Serapan.CONTENT_URI, null, null);
+            }
+        }
+        DataPref.setDateSerapan(currentDate);
     }
 }

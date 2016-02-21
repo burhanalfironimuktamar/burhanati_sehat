@@ -135,4 +135,46 @@ public class DataPref {
                 Context.MODE_PRIVATE);
         return mSharedPreferences.getLong(Constant.PREF_KALORI_PERHARI, 0);
     }
+
+    public static void setTTL(String ttl) {
+        mEditor = mSharedPreferences.edit();
+        mEditor.putString(Constant.PREF_TTL, ttl);
+        mEditor.commit();
+    }
+
+    public static String getTTL(Context context) {
+        String ttl = "";
+        mSharedPreferences = context.getSharedPreferences(Constant.PREF_NAME,
+                Context.MODE_PRIVATE);
+        ttl = mSharedPreferences.getString(Constant.PREF_TTL, "");
+        return ttl;
+    }
+
+    public static void setDateSerapan(String ttl) {
+        mEditor = mSharedPreferences.edit();
+        mEditor.putString(Constant.PREF_SERAPAN, ttl);
+        mEditor.commit();
+    }
+
+    public static String getSerapan(Context context) {
+        String serapan = "";
+        mSharedPreferences = context.getSharedPreferences(Constant.PREF_NAME,
+                Context.MODE_PRIVATE);
+        serapan = mSharedPreferences.getString(Constant.PREF_SERAPAN, "");
+        return serapan;
+    }
+
+    public static void isFirst(boolean isFirst) {
+        mEditor = mSharedPreferences.edit();
+        mEditor.putBoolean(Constant.PREF_ISFIRST, isFirst);
+        mEditor.commit();
+    }
+
+    public static boolean getFirst(Context context) {
+        boolean isFirst = true;
+        mSharedPreferences = context.getSharedPreferences(Constant.PREF_NAME,
+                Context.MODE_PRIVATE);
+        isFirst = mSharedPreferences.getBoolean(Constant.PREF_ISFIRST, true);
+        return isFirst;
+    }
 }
