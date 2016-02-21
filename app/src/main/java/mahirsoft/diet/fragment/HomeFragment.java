@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import mahirsoft.diet.R;
+import mahirsoft.diet.data.JadwalDiet;
 import mahirsoft.diet.data.Serapan;
 import mahirsoft.diet.utils.DataPref;
 
@@ -41,12 +45,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        kalori.setText("Jumlah kalori per hari adalah " + DataPref.getKaloriPerHari(getActivity()));
         txtName.setText("Selamat datang " + DataPref.getNama(getActivity()));
 
-        Cursor cursor = getActivity().getContentResolver().query(Serapan.CONTENT_URI, new String[]{"sum("+Serapan.COLUMN_KALORI+")"}, null, null, null);
-        if (cursor.moveToNext()){
-            terserap = cursor.getInt(cursor.getColumnIndexOrThrow("sum("+Serapan.COLUMN_KALORI+")"));
+        Cursor cursor = getActivity().getContentResolver().query(Serapan.CONTENT_URI, new String[]{"sum(" + Serapan.COLUMN_KALORI + ")"}, null, null, null);
+        if (cursor.moveToNext()) {
+            terserap = cursor.getInt(cursor.getColumnIndexOrThrow("sum(" + Serapan.COLUMN_KALORI + ")"));
         }
         cursor.close();
         kaloriTerserap.setText("Jumlah kalori terserap hari ini adalah " + terserap);
@@ -57,5 +60,19 @@ public class HomeFragment extends Fragment {
         } else {
             mAvatar.setImageResource(R.drawable.pleased);
         }
+
+        Cursor k = getActivity().getContentResolver().query(JadwalDiet.CONTENT_URI, new String[]{"sum(" + JadwalDiet.COLUMN_KALORI + ")"}, JadwalDiet.COLUMN_DATE + "='" + new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()) + "'", null, null);
+        if (k.moveToNext()) {
+            int kal = k.getInt(k.getColumnIndexOrThrow("sum(" + JadwalDiet.COLUMN_KALORI + ")"));
+            if (kal>0) {
+                kalori.setText("Jumlah kalori per hari adalah " + kal);
+
+            }else {
+                kalori.setText("Jumlah kalori per hari adalah " + DataPref.getKaloriPerHari(getActivity()));
+            }
+        } else {
+            kalori.setText("Jumlah kalori per hari adalah " + DataPref.getKaloriPerHari(getActivity()));
+        }
+        k.close();
     }
 }

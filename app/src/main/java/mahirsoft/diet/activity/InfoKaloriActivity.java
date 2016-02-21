@@ -22,6 +22,8 @@ public class InfoKaloriActivity extends AppCompatActivity implements View.OnClic
     private ArrayAdapter<String> autoCompleteAdapter;
     private TextView nama;
     private TextView kalori;
+    private TextView manfaaat;
+    private TextView uraiain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,10 @@ public class InfoKaloriActivity extends AppCompatActivity implements View.OnClic
         autoComplete = (AutoCompleteTextView) findViewById(R.id.autoComplete);
         nama = (TextView) findViewById(R.id.txtNama);
         kalori = (TextView) findViewById(R.id.txtJmlKalori);
+        manfaaat = (TextView) findViewById(R.id.txtManfaat);
+        uraiain = (TextView) findViewById(R.id.txtUraian);
 
-        Cursor foodCursor = getContentResolver().query(Food.CONTENT_URI, new String[]{Food.COLUMN_NAME}, null, null, null);
+        Cursor foodCursor = getContentResolver().query(Food.CONTENT_URI, new String[]{"*"}, null, null, null);
         String[] foods = new String[foodCursor.getCount()];
         int i = 0;
         while (foodCursor.moveToNext()){
@@ -65,6 +69,8 @@ public class InfoKaloriActivity extends AppCompatActivity implements View.OnClic
             while (cursor.moveToNext()){
                 nama.setText(cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_NAME)));
                 kalori.setText(cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_KALORI)));
+                uraiain.setText(cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_URAIAN)));
+                manfaaat.setText(cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_MANFAAT)));
             }
             cursor.close();
 

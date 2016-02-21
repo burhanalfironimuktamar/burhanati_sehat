@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -157,21 +158,54 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
                 long mulai = new SimpleDateFormat("dd-MM-yyyy").parse(tglMulai).getTime();
                 int diff = (int) ((selesai - mulai) / (24 * 60 * 60 * 1000));
                 int kalori = (int) DataPref.getKaloriPerHari(getActivity());
+                int umur = DataPref.getUmur(getActivity());
                 String golonganDarah = DataPref.getDarah(getActivity());
-                for (int i = 0; i < diff + 1; i++) {
+                for (int day = 0; day < diff + 1; day++) {
                     int sumKalori = 0;
-                    String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date(mulai + (i * 24 * 60 * 60 * 1000)));
-                    while (sumKalori < kalori) {
-                        Cursor cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"}, Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "'", null, "RANDOM() LIMIT 1");
-                        if (cursor.moveToNext()) {
+                    String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date(mulai + (day * 24 * 60 * 60 * 1000)));
+                    Cursor cursor = null;
+                    for (int i = 0; i<5; i++){
+                        switch (i){
+                            case 0:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                    Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "
+                                            +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='K'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 1:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 2:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='V'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 4:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 5:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='V'", null, "RANDOM() LIMIT 1");
+                                break;
+                        }
+                        if (cursor!=null && cursor.moveToNext()) {
                             int colory = cursor.getInt(cursor.getColumnIndexOrThrow(JadwalDiet.COLUMN_KALORI));
-                            ContentValues cv = new ContentValues();
-                            cv.put(JadwalDiet.COLUMN_NAME, cursor.getString(cursor.getColumnIndexOrThrow(JadwalDiet.COLUMN_NAME)));
-                            cv.put(JadwalDiet.COLUMN_KALORI, colory);
-                            cv.put(JadwalDiet.COLUMN_GOLONGANDARAH, cursor.getString(cursor.getColumnIndexOrThrow(JadwalDiet.COLUMN_GOLONGANDARAH)));
-                            cv.put(JadwalDiet.COLUMN_DATE, date);
-                            getActivity().getContentResolver().insert(JadwalDiet.CONTENT_URI, cv);
                             sumKalori += colory;
+                            if (sumKalori <= kalori) {
+                                ContentValues cv = new ContentValues();
+                                cv.put(JadwalDiet.COLUMN_NAME, cursor.getString(cursor.getColumnIndexOrThrow(JadwalDiet.COLUMN_NAME)));
+                                cv.put(JadwalDiet.COLUMN_KALORI, colory);
+                                cv.put(JadwalDiet.COLUMN_GOLONGANDARAH, cursor.getString(cursor.getColumnIndexOrThrow(JadwalDiet.COLUMN_GOLONGANDARAH)));
+                                cv.put(JadwalDiet.COLUMN_DATE, date);
+                                getActivity().getContentResolver().insert(JadwalDiet.CONTENT_URI, cv);
+                                Log.d("test", i+". "+date+" : "+sumKalori);
+                            }else {
+                                Log.d("test", i+". "+date+" : "+sumKalori+" > "+kalori);
+                            }
                         }
                         cursor.close();
                     }

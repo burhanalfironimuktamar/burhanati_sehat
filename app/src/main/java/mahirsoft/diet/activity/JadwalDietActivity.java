@@ -96,7 +96,7 @@ public class JadwalDietActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, JadwalDiet.CONTENT_URI, JadwalDiet.COLUMNS, JadwalDiet.COLUMN_DATE+"='"+new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime())+"'", null, JadwalDiet.TABLE_NAME+"."+JadwalDiet._ID+" ASC");
+        return new CursorLoader(this, JadwalDiet.CONTENT_URI, new String[]{"*"}, JadwalDiet.COLUMN_DATE+"='"+new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime())+"'", null, JadwalDiet.TABLE_NAME+"."+JadwalDiet._ID+" ASC");
     }
 
     @Override
