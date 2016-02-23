@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -164,32 +163,67 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
                     int sumKalori = 0;
                     String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date(mulai + (day * 24 * 60 * 60 * 1000)));
                     Cursor cursor = null;
-                    for (int i = 0; i<5; i++){
+                    for (int i = 0; i<12; i++){
                         switch (i){
                             case 0:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                     Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "
-                                            +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='K'", null, "RANDOM() LIMIT 1");
+                                            +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
                                 break;
                             case 1:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                         Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
-                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='K'", null, "RANDOM() LIMIT 1");
                                 break;
                             case 2:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                         Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
                                                 Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='V'", null, "RANDOM() LIMIT 1");
                                 break;
-                            case 4:
+                            case 3:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                         Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
-                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='L'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 4:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "
+                                                +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
                                 break;
                             case 5:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                         Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='K'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 6:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
                                                 Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='V'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 7:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='L'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 8:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "
+                                                +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 9:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='K'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 10:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='V'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 11:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='L'", null, "RANDOM() LIMIT 1");
                                 break;
                         }
                         if (cursor!=null && cursor.moveToNext()) {
@@ -202,9 +236,6 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
                                 cv.put(JadwalDiet.COLUMN_GOLONGANDARAH, cursor.getString(cursor.getColumnIndexOrThrow(JadwalDiet.COLUMN_GOLONGANDARAH)));
                                 cv.put(JadwalDiet.COLUMN_DATE, date);
                                 getActivity().getContentResolver().insert(JadwalDiet.CONTENT_URI, cv);
-                                Log.d("test", i+". "+date+" : "+sumKalori);
-                            }else {
-                                Log.d("test", i+". "+date+" : "+sumKalori+" > "+kalori);
                             }
                         }
                         cursor.close();
