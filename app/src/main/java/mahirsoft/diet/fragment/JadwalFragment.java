@@ -163,7 +163,7 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
                     int sumKalori = 0;
                     String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date(mulai + (day * 24 * 60 * 60 * 1000)));
                     Cursor cursor = null;
-                    for (int i = 0; i<12; i++){
+                    for (int i = 0; i<15; i++){
                         switch (i){
                             case 0:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
@@ -188,42 +188,57 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
                             case 4:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                         Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "
-                                                +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
+                                                +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='M'", null, "RANDOM() LIMIT 1");
                                 break;
                             case 5:
-                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
-                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
-                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='K'", null, "RANDOM() LIMIT 1");
-                                break;
-                            case 6:
-                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
-                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
-                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='V'", null, "RANDOM() LIMIT 1");
-                                break;
-                            case 7:
-                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
-                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
-                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='L'", null, "RANDOM() LIMIT 1");
-                                break;
-                            case 8:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                         Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "
                                                 +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
                                 break;
-                            case 9:
+                            case 6:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                         Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
                                                 Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='K'", null, "RANDOM() LIMIT 1");
                                 break;
-                            case 10:
+                            case 7:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                         Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
                                                 Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='V'", null, "RANDOM() LIMIT 1");
                                 break;
-                            case 11:
+                            case 8:
                                 cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
                                         Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
                                                 Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='L'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 9:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "
+                                                +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='M'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 10:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "
+                                                +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='P'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 11:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='K'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 12:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='V'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 13:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "+
+                                                Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='L'", null, "RANDOM() LIMIT 1");
+                                break;
+                            case 14:
+                                cursor = getActivity().getContentResolver().query(Food.CONTENT_URI, new String[]{"*"},
+                                        Food.COLUMN_DARIUMUR+"<='"+umur+"' AND "+Food.COLUMN_SAMPAIUMUR+">='"+umur+"' AND "
+                                                +Food.COLUMN_GOLONGANDARAH + "='" + golonganDarah + "' AND " + Food.COLUMN_CATEGORY+ "='M'", null, "RANDOM() LIMIT 1");
                                 break;
                         }
                         if (cursor!=null && cursor.moveToNext()) {
