@@ -33,7 +33,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, V
     private RadioGroup rdGroup;
     private Button btnSimpan;
     private String nama, JK, darah, ttl;
-    private int umur, berat, tinggi;
+    private int berat, tinggi;
+    private float umur;
     private boolean isFirst = false;
 
     private int year;
@@ -149,9 +150,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, V
             if (ttl.length() > 0) {
                 String[] date = ttl.split("-");
                 umur = currYear - Integer.parseInt(date[2]);
-                if (currMonth - Integer.parseInt(date[1]) < 0) {
+                int diffMonth = (currMonth+1) - Integer.parseInt(date[1]);
+                int diffDay = currDay - Integer.parseInt(date[0]);
+                if (diffMonth < 0) {
                     umur--;
+                    diffMonth += 12;
                 }
+                if (diffDay < 0) {
+                    diffMonth--;
+                }
+                umur += Float.valueOf("0." + diffMonth);
+
             } else {
                 umur = 0;
             }

@@ -41,7 +41,7 @@ public class Utils {
         return null;
     }
 
-    public static long kaloriPerHari(String jk, int berat, int tinggi, int usia) {
+    public static long kaloriPerHari(String jk, int berat, int tinggi, float usia) {
         if (jk.equals("P")) {
             return Math.round(66.4730 + (13.7516 * berat) + (5.0033 * tinggi) - (6.7550 * usia));
         } else {

@@ -3,6 +3,7 @@ package mahirsoft.diet.fragment;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import mahirsoft.diet.utils.DataPref;
 public class HomeFragment extends Fragment {
     private ImageView mAvatar;
     private TextView txtName;
+    private TextView txtUmur;
     private TextView kalori;
     private TextView kaloriTerserap;
 
@@ -40,6 +42,7 @@ public class HomeFragment extends Fragment {
         txtName = (TextView) view.findViewById(R.id.name);
         kalori = (TextView) view.findViewById(R.id.kalori);
         kaloriTerserap = (TextView) view.findViewById(R.id.kalori_terserap);
+        txtUmur = (TextView) view.findViewById(R.id.umur);
     }
 
     @Override
@@ -48,6 +51,11 @@ public class HomeFragment extends Fragment {
         validDate();
         kalori.setText("Jumlah kalori per hari adalah " + DataPref.getKaloriPerHari(getActivity()));
         txtName.setText("Selamat datang " + DataPref.getNama(getActivity()));
+        int year = (int) Math.floor(DataPref.getUmur(getActivity()));
+        String umur = String.valueOf(DataPref.getUmur(getActivity()));
+        Log.d("test", "Umur :" + umur);
+        int month = Integer.valueOf(umur.substring(umur.indexOf(".") + 1));
+        txtUmur.setText("Usia Anda "+year+" Tahun "+month+" Bulan");
 
         Cursor cursor = getActivity().getContentResolver().query(Serapan.CONTENT_URI, new String[]{"sum(" + Serapan.COLUMN_KALORI + ")"}, null, null, null);
         if (cursor.moveToNext()) {

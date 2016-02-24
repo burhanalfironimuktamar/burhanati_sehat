@@ -157,7 +157,7 @@ public class JadwalFragment extends Fragment implements View.OnTouchListener, Vi
                 long mulai = new SimpleDateFormat("dd-MM-yyyy").parse(tglMulai).getTime();
                 int diff = (int) ((selesai - mulai) / (24 * 60 * 60 * 1000));
                 int kalori = (int) DataPref.getKaloriPerHari(getActivity());
-                int umur = DataPref.getUmur(getActivity());
+                int umur = (int) Math.floor(DataPref.getUmur(getActivity()));
                 String golonganDarah = DataPref.getDarah(getActivity());
                 for (int day = 0; day < diff + 1; day++) {
                     int sumKalori = 0;

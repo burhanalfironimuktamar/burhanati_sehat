@@ -26,17 +26,17 @@ public class DataPref {
         return nama;
     }
 
-    public static void setUmur(int umur) {
+    public static void setUmur(float umur) {
         mEditor = mSharedPreferences.edit();
-        mEditor.putInt(Constant.PREF_UMUR, umur);
+        mEditor.putFloat(Constant.PREF_UMUR, umur);
         mEditor.commit();
     }
 
-    public static int getUmur(Context context) {
-        int umur = 0;
+    public static float getUmur(Context context) {
+        float umur = 0;
         mSharedPreferences = context.getSharedPreferences(Constant.PREF_NAME,
                 Context.MODE_PRIVATE);
-        umur = mSharedPreferences.getInt(Constant.PREF_UMUR, 0);
+        umur = mSharedPreferences.getFloat(Constant.PREF_UMUR, 0);
         Log.d("", "hans getUmur " + umur);
         return umur;
     }
