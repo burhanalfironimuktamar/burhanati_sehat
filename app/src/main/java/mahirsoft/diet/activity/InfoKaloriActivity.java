@@ -69,7 +69,11 @@ public class InfoKaloriActivity extends AppCompatActivity implements View.OnClic
             while (cursor.moveToNext()){
                 nama.setText(cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_NAME)));
                 kalori.setText(cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_KALORI)));
-                uraiain.setText(cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_URAIAN)));
+                String uraian = cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_URAIAN));
+                if (uraian == null || uraian.isEmpty()){
+                    uraian = "-";
+                }
+                uraiain.setText(uraian);
                 manfaaat.setText(cursor.getString(cursor.getColumnIndexOrThrow(Food.COLUMN_MANFAAT)));
             }
             cursor.close();
